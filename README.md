@@ -61,7 +61,17 @@ Singo框架为移动端提供Token登录的案例: https://github.com/bydmm/sing
 ## Godotenv
 
 项目在启动的时候依赖以下环境变量，但是在也可以在项目根目录创建.env文件设置环境变量便于使用(建议开发环境使用)
+```shell
+#apollo接入配置
+AppID="singo"
+Cluster="dev"
+IP="http://127.0.0.1:8080"
+NamespaceName="application"
+Secret="24609ee9616f4cd4a8596e69e2a9c72a"
 
+```
+
+以下内容在apollo内配置
 ```shell
 MYSQL_DSN="db_user:db_password@/db_name?charset=utf8&parseTime=True&loc=Local" # Mysql连接地址
 REDIS_ADDR="127.0.0.1:6379" # Redis端口和地址
