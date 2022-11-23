@@ -1,8 +1,8 @@
 package conf
 
 import (
-	"os"
-	"singo/cache"
+	"github.com/gin-gonic/gin"
+	"singo/agollo"
 	"singo/model"
 	"singo/util"
 
@@ -12,10 +12,15 @@ import (
 // Init 初始化配置项
 func Init() {
 	// 从本地读取环境变量
-	godotenv.Load()
+	_ = godotenv.Load()
+
+	// 从Apollo读取环境变量
+	agollo.Load()
+
+	gin.SetMode(agollo.GetString("GIN_MODE"))
 
 	// 设置日志级别
-	util.BuildLogger(os.Getenv("LOG_LEVEL"))
+	util.BuildLogger(agollo.GetString("LOG_LEVEL"))
 
 	// 读取翻译文件
 	if err := LoadLocales("conf/locales/zh-cn.yaml"); err != nil {
@@ -23,6 +28,5 @@ func Init() {
 	}
 
 	// 连接数据库
-	model.Database(os.Getenv("MYSQL_DSN"))
-	cache.Redis()
+	model.Database(agollo.GetString("MYSQL_DSN"))
 }

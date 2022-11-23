@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"os"
+	"singo/agollo"
 	"singo/util"
 	"strconv"
 
@@ -13,10 +13,10 @@ var RedisClient *redis.Client
 
 // Redis 在中间件中初始化redis链接
 func Redis() {
-	db, _ := strconv.ParseUint(os.Getenv("REDIS_DB"), 10, 64)
+	db, _ := strconv.ParseUint(agollo.GetString("REDIS_DB"), 10, 64)
 	client := redis.NewClient(&redis.Options{
-		Addr:       os.Getenv("REDIS_ADDR"),
-		Password:   os.Getenv("REDIS_PW"),
+		Addr:       agollo.GetString("REDIS_ADDR"),
+		Password:   agollo.GetString("REDIS_PW"),
 		DB:         int(db),
 		MaxRetries: 1,
 	})
